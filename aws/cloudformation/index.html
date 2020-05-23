@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="dist/reset.css">
+		<link rel="stylesheet" href="dist/reveal.css">
+		<link rel="stylesheet" href="dist/theme/black.css" id="theme">
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+	</head>
+	<body>
+<div class="reveal">
+  <div class="slides">
+    <section>AWS DEVOPS - Lets Get Hands on !!
+ <img src="assets/cf_aws.jpg"  >  
+ </section>
+	
+    <section>
+      <section>Lets spin up an EC2  in our VPC using AWS Cloudformation!  </section>
+      <section data-markdown>AWS CLI Command to spin up a new cf stack
+	  <pre><code >
+	aws cloudformation create-stack --stack-name ashwinteststack 
+	--template-body file://ec2_isntance_with_security_group.txt 
+	--parameters ParameterKey=KeyName,ParameterValue=ashwin_admin_keyMay2020
+	   </code></pre>
+	</section>
+     </section>
+
+
+    <section>
+      <section>Lets wait for cf to do its work ! </section>
+      <section data-markdown>Command to keep waiting till resources are created in AWS
+	  <pre><code >
+	aws cloudformation wait stack-create-complete --stack-name ashwinteststack
+	   </code></pre>
+	</section>
+     </section>
+
+
+    <section>
+      <section>Lets check logs in  AWS Cloudformation! </section>
+      <section data-markdown>Spit the logs!
+	  <pre><code >
+	aws cloudformation describe-stack-events --stack-name ashwinteststack
+	   </code></pre>
+	</section>
+     </section>
+
+    <section>
+      <section>Lets check what it created in AWS Cloudformation! </section>
+      <section data-markdown>Spit the output !
+	  <pre><code >
+	aws cloudformation describe-stack-events --stack-name ashwinteststack
+	   </code></pre>
+	</section>
+     </section>
+
+    <section>
+      <section>Let's Update our stack in  AWS Cloudformation! </section>
+      <section data-markdown>Update to allow port 80 on the security group
+	  <pre><code >
+	aws cloudformation update-stack --stack-name ashwinteststack 
+	--template-body file://ec2_isntance_with_security_group.txt 
+	--parameters ParameterKey=KeyName,ParameterValue=ashwin_admin_keyMay2020
+	   </code></pre>
+	</section>
+     </section>
+
+
+    <section>
+      <section>Let's Tear down our AWS Cloudformation Stack! </section>
+      <section data-markdown>First delete-stack and then wait for it to tear down.
+	  <pre><code >
+	aws cloudformation delete-stack --stack-name ashwinteststack
+	aws cloudformation wait stack-delete-complete --stack-name ashwinteststack
+	   </code></pre>
+	</section>
+     </section>
+  </div>
+</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="plugin/notes/notes.js"></script>
+		<script src="plugin/markdown/markdown.js"></script>
+		<script src="plugin/highlight/highlight.js"></script>
+
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
+
+
+});
+		</script>
+	</body>
+</html>
